@@ -21,6 +21,7 @@ ZonapixelBlog/
 │   │   └── router/        # Rutas de la API
 └── frontend/
     └── public/            # Archivos estáticos
+         └── src  
 ```
 
 ## 🤝 Contribución
