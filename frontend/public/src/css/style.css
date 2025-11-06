@@ -214,3 +214,63 @@ footer .Logo {
     color: var(--primary-purple);
 }
 
+/* Estilos de reseñas.html */
+.section-title-left {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.game-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.game-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    height: 100%;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+}
+
+.game-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.game-card-content {
+    background: #f8f9fa;
+    padding: 1.5rem;
+}
+
+.game-card-content h5 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+}
+
+.game-card-content p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+}
+
+.pagination .page-link {
+    color: #333;
+    border: none;
+    margin: 0 0.25rem;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-purple);
+    border-color: var(--primary-purple);
+}
+
+/* estilos de entrevistas.html  */
