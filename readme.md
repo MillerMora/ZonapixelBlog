@@ -4,24 +4,38 @@ Bienvenido a ZonapixelBlog, tu fuente definitiva de noticias, reseñas y conteni
 
 ## 📋 Descripción
 
-ZonapixelBlog es una plataforma web dedicada a compartir contenido sobre videojuegos, incluyendo:
+ZonapixelBlog es una plataforma web estática dedicada a compartir contenido sobre videojuegos, incluyendo:
 - Reseñas de juegos
-- Noticias de la industria
-- Guías y tutoriales
-- Opiniones y entrevistas
+- Artículos y noticias de la industria
+- Opiniones de la comunidad
+- Entrevistas
+
+## 🛠️ Tecnologías
+
+- **HTML5**: Estructura de las páginas web
+- **CSS3**: Estilos y diseño responsivo
+- **Bootstrap 5**: Framework CSS para componentes y layout
 
 ## 📁 Estructura del Proyecto
 
 ```
 ZonapixelBlog/
-├── backend/
-│   ├── src/
-│   │   ├── controllers/   # Controladores de la aplicación
-│   │   ├── models/        # Modelos de datos
-│   │   └── router/        # Rutas de la API
-└── frontend/
-    └── public/            # Archivos estáticos
-         └── src           # Archivos html/CSS 
+├── frontend/
+│   └── public/
+│       └── src/
+│           ├── index.html          # Página principal
+│           ├── resenas.html        # Página de reseñas
+│           ├── articulos.html      # Página de artículos
+│           ├── opiniones.html      # Página de opiniones
+│           ├── entrevistas.html    # Página de entrevistas
+│           ├── articulo.html       # Página individual de artículo
+│           ├── resena.html         # Página individual de reseña
+│           ├── opinion.html        # Página individual de opinión
+│           ├── entrevista.html     # Página individual de entrevista
+│           ├── crear_opinion.html  # Página para crear opinión
+│           └── css/
+│               └── style.css       # Estilos CSS
+└── readme.md
 ```
 
 ## 🤝 Contribución
