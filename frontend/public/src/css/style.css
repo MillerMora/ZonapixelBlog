@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 :root {
     --primary-purple: #8b5cf6;
     --dark-bg: #1a1a1a;
@@ -134,7 +135,7 @@ a.card.goty-card {
 .review-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    background: #ffffff; 
+    background: #ffffff;
 }
 
 .review-card .small,
@@ -279,7 +280,7 @@ footer .Logo {
     border-radius: 12px;
     overflow: hidden;
     background: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .article-link {
@@ -351,6 +352,7 @@ footer .Logo {
     background: white;
     color: var(--primary-purple);
 }
+
 /* estilos opiniones */
 
 .opiniones-title {
@@ -364,7 +366,7 @@ footer .Logo {
     font-size: 1.2rem;
     color: #666;
     margin-bottom: 3rem;
-    text-align: center; 
+    text-align: center;
 }
 
 .floating-btn {
@@ -394,7 +396,7 @@ footer .Logo {
     background: var(--primary-purple);
     color: white;
     border: none;
-    border-radius: 8px;  
+    border-radius: 8px;
     padding: 15px 25px;
     font-size: 0.95rem;
     font-weight: 600;
@@ -406,7 +408,7 @@ footer .Logo {
     align-items: center;
     gap: 10px;
     white-space: nowrap;
-    min-width: fit-content; 
+    min-width: fit-content;
 }
 
 .floating-btn:hover {
@@ -434,7 +436,7 @@ footer .Logo {
 .pagination .page-item.active .page-link {
     background-color: var(--primary-purple);
     border-color: var(--primary-purple);
-    color: white; 
+    color: white;
 }
 
 .pagination .page-link:hover {
@@ -471,7 +473,7 @@ footer .Logo {
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 70%, transparent 100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 70%, transparent 100%);
     padding: 2rem 1.5rem 1.5rem 1.5rem;
     color: white;
 }
@@ -538,7 +540,69 @@ footer .Logo {
     background: white;
     padding: 1.5rem;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.carousel-container {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background: rgba(102, 126, 234, 0.9);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.carousel-container:hover .carousel-control-prev,
+.carousel-container:hover .carousel-control-next {
+    opacity: 1;
+}
+
+.carousel-control-prev {
+    left: -25px;
+}
+
+.carousel-control-next {
+    right: -25px;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background: rgba(102, 126, 234, 1);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.carousel-inner {
+    padding: 0.5rem 0;
+}
+
+.carousel-item .row {
+    margin: 0 -12px;
+}
+
+.carousel-item .col-md-6,
+.carousel-item .col-lg-3 {
+    padding: 0 12px;
+}
+
+@media (max-width: 768px) {
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        opacity: 1;
+    }
 }
 
 /* estilos de articulo */
@@ -574,11 +638,11 @@ footer .Logo {
     .article-main-title {
         font-size: 1.75rem;
     }
-    
+
     .article-header-box {
         padding: 2rem 1.5rem;
     }
-    
+
     .article-text {
         font-size: 1rem;
         text-align: left;
@@ -734,24 +798,25 @@ footer .Logo {
     .opinion-title {
         font-size: 1.5rem;
     }
-    
+
     .opinion-meta {
         font-size: 0.85rem;
     }
-    
+
     .opinion-text {
         font-size: 1rem;
         text-align: left;
     }
-    
+
     .opinion-content-box {
         padding: 1.5rem;
     }
-    
+
     .comments-section {
         padding: 1.5rem;
     }
 }
+
 /* estilos entrevista */
 .interview-header-box {
     background: #f5f5f5;
@@ -772,7 +837,7 @@ footer .Logo {
 .video-container {
     position: relative;
     width: 100%;
-    padding-top: 56.25%; 
+    padding-top: 56.25%;
     border-radius: 12px;
     overflow: hidden;
     background: #000;
@@ -811,20 +876,20 @@ footer .Logo {
     .interview-title {
         font-size: 1.75rem;
     }
-    
+
     .interview-header-box {
         padding: 2rem 1.5rem;
     }
-    
+
     .interview-text {
         font-size: 1rem;
         text-align: left;
     }
-    
+
     .video-play-icon {
         font-size: 3rem;
     }
-    
+
     .interview-side-image {
         margin-top: 1rem;
     }
@@ -983,15 +1048,15 @@ footer .Logo {
     .create-opinion-box {
         padding: 2rem 1.5rem;
     }
-    
+
     .create-opinion-title {
         font-size: 1.75rem;
     }
-    
+
     .upload-area {
         padding: 2rem 1rem;
     }
-    
+
     .upload-icon {
         font-size: 2.5rem;
     }
