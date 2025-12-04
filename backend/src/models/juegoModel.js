@@ -1,10 +1,11 @@
 const db = require('../config/database');
-const sql = require('mssql');
 
 const obtenerJuegos = async () => {
     try {
         const pool = await db.obtenerConexion();
-        const resultado = await pool.request().query('SELECT * FROM juegos WHERE activo = 1 ORDER BY nombre_juego');
+        const resultado = await pool.request().query(`
+            SELECT * FROM juegos WHERE activo = 1 ORDER BY fecha_creacion DESC
+        `);
         return resultado.recordset;
     } catch (error) {
         throw new Error('Error al obtener juegos: ' + error.message);
@@ -16,22 +17,12 @@ const obtenerJuegoPorId = async (id) => {
         const pool = await db.obtenerConexion();
         const resultado = await pool.request()
             .input('id', sql.Int, id)
-            .query('SELECT * FROM juegos WHERE id_juego = @id AND activo = 1');
+            .query(`
+                SELECT * FROM juegos WHERE id_juego = @id AND activo = 1
+            `);
         return resultado.recordset[0];
     } catch (error) {
         throw new Error('Error al obtener juego: ' + error.message);
-    }
-};
-
-const buscarJuegos = async (termino) => {
-    try {
-        const pool = await db.obtenerConexion();
-        const resultado = await pool.request()
-            .input('termino', sql.VarChar, `%${termino}%`)
-            .query('SELECT * FROM juegos WHERE nombre_juego LIKE @termino AND activo = 1');
-        return resultado.recordset;
-    } catch (error) {
-        throw new Error('Error al buscar juegos: ' + error.message);
     }
 };
 
@@ -96,7 +87,6 @@ const eliminarJuego = async (id) => {
 module.exports = {
     obtenerJuegos,
     obtenerJuegoPorId,
-    buscarJuegos,
     crearJuego,
     actualizarJuego,
     eliminarJuego
