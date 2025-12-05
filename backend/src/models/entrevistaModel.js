@@ -1,61 +1,67 @@
-const db = require('../config/database');
+const { obtenerConexion, mysql } = require('../config/database');
 
-const obtenerEntrevistas = async () => {
+class EntrevistaModel {
+  static async obtenerTodos() {
     try {
-        const pool = await db.obtenerConexion();
-        const resultado = await pool.request().query(`
-            SELECT e.*, u.nombre_usuario, c.nombre_categoria
-            FROM entrevistas e
-            LEFT JOIN usuarios u ON e.id_autor = u.id_usuario
-            LEFT JOIN categorias c ON e.id_categoria = c.id_categoria
-            WHERE e.activo = 1
-            ORDER BY e.fecha_publicacion DESC
-        `);
-        return resultado.recordset;
+      const pool = await obtenerConexion();
+      const [filas] = await pool.execute(`
+        SELECT
+          e.*,
+          u.nombre_usuario,
+          u.imagen_perfil,
+          c.nombre_categoria
+        FROM entrevistas e
+        LEFT JOIN usuarios u ON e.id_autor = u.id_usuario
+        LEFT JOIN categorias c ON e.id_categoria = c.id_categoria
+        WHERE e.activo = 1
+        ORDER BY e.fecha_publicacion DESC
+      `);
+      return filas;
     } catch (error) {
-        throw new Error('Error al obtener entrevistas: ' + error.message);
+      throw error;
     }
-};
+  }
 
-const obtenerEntrevistaPorId = async (id) => {
+  static async obtenerPorId(id) {
     try {
-        const pool = await db.obtenerConexion();
-        const resultado = await pool.request()
-            .input('id', sql.Int, id)
-            .query(`
-                SELECT e.*, u.nombre_usuario, c.nombre_categoria
-                FROM entrevistas e
-                LEFT JOIN usuarios u ON e.id_autor = u.id_usuario
-                LEFT JOIN categorias c ON e.id_categoria = c.id_categoria
-                WHERE e.id_entrevista = @id AND e.activo = 1
-            `);
-        return resultado.recordset[0];
+      const pool = await obtenerConexion();
+      const [filas] = await pool.execute(`
+        SELECT
+          e.*,
+          u.nombre_usuario,
+          u.imagen_perfil,
+          c.nombre_categoria
+        FROM entrevistas e
+        LEFT JOIN usuarios u ON e.id_autor = u.id_usuario
+        LEFT JOIN categorias c ON e.id_categoria = c.id_categoria
+        WHERE e.id_entrevista = ? AND e.activo = 1
+      `, [id]);
+      return filas[0];
     } catch (error) {
-        throw new Error('Error al obtener entrevista: ' + error.message);
+      throw error;
     }
-};
+  }
 
-const obtenerEntrevistasPorAutor = async (idAutor) => {
+  static async obtenerRecientes(limite = 5) {
     try {
-        const pool = await db.obtenerConexion();
-        const resultado = await pool.request()
-            .input('id_autor', sql.Int, idAutor)
-            .query(`
-                SELECT e.*, u.nombre_usuario, c.nombre_categoria
-                FROM entrevistas e
-                LEFT JOIN usuarios u ON e.id_autor = u.id_usuario
-                LEFT JOIN categorias c ON e.id_categoria = c.id_categoria
-                WHERE e.id_autor = @id_autor AND e.activo = 1
-                ORDER BY e.fecha_publicacion DESC
-            `);
-        return resultado.recordset;
+      const pool = await obtenerConexion();
+      const [filas] = await pool.execute(`
+        SELECT
+          e.*,
+          u.nombre_usuario,
+          c.nombre_categoria
+        FROM entrevistas e
+        LEFT JOIN usuarios u ON e.id_autor = u.id_usuario
+        LEFT JOIN categorias c ON e.id_categoria = c.id_categoria
+        WHERE e.activo = 1
+        ORDER BY e.fecha_publicacion DESC
+        LIMIT ?
+      `, [limite]);
+      return filas;
     } catch (error) {
-        throw new Error('Error al obtener entrevistas por autor: ' + error.message);
+      throw error;
     }
-};
+  }
+}
 
-module.exports = {
-    obtenerEntrevistas,
-    obtenerEntrevistaPorId,
-    obtenerEntrevistasPorAutor
-};
+module.exports = EntrevistaModel;

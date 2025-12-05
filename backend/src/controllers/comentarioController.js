@@ -1,88 +1,71 @@
-const comentarioModel = require('../models/comentarioModel');
+const ComentarioModel = require('../models/comentarioModel');
 
-const obtenerComentarios = async (req, res) => {
+class ComentarioController {
+  static async obtenerPorOpinion(req, res) {
     try {
-        const comentarios = await comentarioModel.obtenerComentarios();
-        res.json({
-            success: true,
-            data: comentarios,
-            message: 'Comentarios obtenidos exitosamente'
-        });
-    } catch (error) {
-        console.error('Error al obtener comentarios:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error interno del servidor',
-            error: error.message
-        });
-    }
-};
+      const { idOpinion } = req.params;
+      const comentarios = await ComentarioModel.obtenerPorOpinion(idOpinion);
 
-const obtenerComentariosPorOpinion = async (req, res) => {
+      res.json({
+        exito: true,
+        datos: comentarios,
+        cantidad: comentarios.length
+      });
+    } catch (error) {
+      console.error('Error al obtener comentarios:', error);
+      res.status(500).json({
+        exito: false,
+        mensaje: 'Error al obtener los comentarios',
+        error: error.message
+      });
+    }
+  }
+
+  static async obtenerPorId(req, res) {
     try {
-        const { idOpinion } = req.params;
+      const { id } = req.params;
+      const comentario = await ComentarioModel.obtenerPorId(id);
 
-        if (!idOpinion || isNaN(idOpinion)) {
-            return res.status(400).json({
-                success: false,
-                message: 'ID de opinión inválido'
-            });
-        }
-
-        const comentarios = await comentarioModel.obtenerComentariosPorOpinion(parseInt(idOpinion));
-
-        res.json({
-            success: true,
-            data: comentarios,
-            message: 'Comentarios de la opinión obtenidos exitosamente'
+      if (!comentario) {
+        return res.status(404).json({
+          exito: false,
+          mensaje: 'Comentario no encontrado'
         });
+      }
+
+      res.json({
+        exito: true,
+        datos: comentario
+      });
     } catch (error) {
-        console.error('Error al obtener comentarios por opinión:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error interno del servidor',
-            error: error.message
-        });
+      console.error('Error al obtener comentario:', error);
+      res.status(500).json({
+        exito: false,
+        mensaje: 'Error al obtener el comentario',
+        error: error.message
+      });
     }
-};
+  }
 
-const obtenerComentarioPorId = async (req, res) => {
+  static async obtenerRecientes(req, res) {
     try {
-        const { id } = req.params;
+      const limite = req.query.limite || 10;
+      const comentarios = await ComentarioModel.obtenerRecientes(limite);
 
-        if (!id || isNaN(id)) {
-            return res.status(400).json({
-                success: false,
-                message: 'ID de comentario inválido'
-            });
-        }
-
-        const comentario = await comentarioModel.obtenerComentarioPorId(parseInt(id));
-
-        if (!comentario) {
-            return res.status(404).json({
-                success: false,
-                message: 'Comentario no encontrado'
-            });
-        }
-
-        res.json({
-            success: true,
-            data: comentario,
-            message: 'Comentario obtenido exitosamente'
-        });
+      res.json({
+        exito: true,
+        datos: comentarios,
+        cantidad: comentarios.length
+      });
     } catch (error) {
-        console.error('Error al obtener comentario:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error interno del servidor',
-            error: error.message
-        });
+      console.error('Error al obtener comentarios recientes:', error);
+      res.status(500).json({
+        exito: false,
+        mensaje: 'Error al obtener los comentarios',
+        error: error.message
+      });
     }
-};
+  }
+}
 
-module.exports = {
-    obtenerComentarios,
-    obtenerComentariosPorOpinion,
-    obtenerComentarioPorId
-};
+module.exports = ComentarioController;

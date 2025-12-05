@@ -1,84 +1,62 @@
-const db = require('../config/database');
-const obtenerResenas = async () => {
-    try {
-        const pool = await db.obtenerConexion();
-        const resultado = await pool.request().query(`
-            SELECT r.*, u.nombre_usuario, c.nombre_categoria, j.nombre_juego
-            FROM resenas r
-            LEFT JOIN usuarios u ON r.id_autor = u.id_usuario
-            LEFT JOIN categorias c ON r.id_categoria = c.id_categoria
-            LEFT JOIN juegos j ON r.id_juego = j.id_juego
-            WHERE r.activo = 1
-            ORDER BY r.fecha_publicacion DESC
-        `);
-        return resultado.recordset;
-    } catch (error) {
-        throw new Error('Error al obtener reseñas: ' + error.message);
-    }
-};
+const { obtenerConexion, mysql } = require('../config/database');
 
-const obtenerResenaPorId = async (id) => {
+class ResenaModel {
+  static async obtenerTodos() {
     try {
-        const pool = await db.obtenerConexion();
-        const resultado = await pool.request()
-            .input('id', sql.Int, id)
-            .query(`
-                SELECT r.*, u.nombre_usuario, c.nombre_categoria, j.nombre_juego
-                FROM resenas r
-                LEFT JOIN usuarios u ON r.id_autor = u.id_usuario
-                LEFT JOIN categorias c ON r.id_categoria = c.id_categoria
-                LEFT JOIN juegos j ON r.id_juego = j.id_juego
-                WHERE r.id_resena = @id AND r.activo = 1
-            `);
-        return resultado.recordset[0];
+      const pool = await obtenerConexion();
+      const [filas] = await pool.execute(`
+        SELECT * FROM vista_resenas_completas
+        WHERE activo = 1
+        ORDER BY fecha_publicacion DESC
+      `);
+      return filas;
     } catch (error) {
-        throw new Error('Error al obtener reseña: ' + error.message);
+      throw error;
     }
-};
+  }
 
-const obtenerResenasPorAutor = async (idAutor) => {
+  static async obtenerPorId(id) {
     try {
-        const pool = await db.obtenerConexion();
-        const resultado = await pool.request()
-            .input('id_autor', sql.Int, idAutor)
-            .query(`
-                SELECT r.*, u.nombre_usuario, c.nombre_categoria, j.nombre_juego
-                FROM resenas r
-                LEFT JOIN usuarios u ON r.id_autor = u.id_usuario
-                LEFT JOIN categorias c ON r.id_categoria = c.id_categoria
-                LEFT JOIN juegos j ON r.id_juego = j.id_juego
-                WHERE r.id_autor = @id_autor AND r.activo = 1
-                ORDER BY r.fecha_publicacion DESC
-            `);
-        return resultado.recordset;
+      const pool = await obtenerConexion();
+      const [filas] = await pool.execute(`
+        SELECT * FROM vista_resenas_completas
+        WHERE id_resena = ? AND activo = 1
+      `, [id]);
+      return filas[0];
     } catch (error) {
-        throw new Error('Error al obtener reseñas por autor: ' + error.message);
+      throw error;
     }
-};
+  }
 
-const obtenerResenasPorJuego = async (idJuego) => {
+  static async obtenerPorJuego(idJuego) {
     try {
-        const pool = await db.obtenerConexion();
-        const resultado = await pool.request()
-            .input('id_juego', sql.Int, idJuego)
-            .query(`
-                SELECT r.*, u.nombre_usuario, c.nombre_categoria, j.nombre_juego
-                FROM resenas r
-                LEFT JOIN usuarios u ON r.id_autor = u.id_usuario
-                LEFT JOIN categorias c ON r.id_categoria = c.id_categoria
-                LEFT JOIN juegos j ON r.id_juego = j.id_juego
-                WHERE r.id_juego = @id_juego AND r.activo = 1
-                ORDER BY r.fecha_publicacion DESC
-            `);
-        return resultado.recordset;
+      const pool = await obtenerConexion();
+      const [filas] = await pool.execute(`
+        SELECT * FROM vista_resenas_completas
+        WHERE id_juego = ? AND activo = 1
+        ORDER BY fecha_publicacion DESC
+      `, [idJuego]);
+      return filas;
     } catch (error) {
-        throw new Error('Error al obtener reseñas por juego: ' + error.message);
+      throw error;
     }
-};
+  }
 
-module.exports = {
-    obtenerResenas,
-    obtenerResenaPorId,
-    obtenerResenasPorAutor,
-    obtenerResenasPorJuego
-};
+  static async obtenerMejorCalificadas(limite = 10) {
+    try {
+      const pool = await obtenerConexion();
+      const [filas] = await pool.execute(`
+        SELECT *
+        FROM vista_resenas_completas
+        WHERE activo = 1
+        ORDER BY calificacion_general DESC, fecha_publicacion DESC
+        LIMIT ?
+      `, [limite]);
+      return filas;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
+
+module.exports = ResenaModel;

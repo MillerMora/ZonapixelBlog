@@ -1,90 +1,69 @@
-const entrevistaModel = require('../models/entrevistaModel');
+const EntrevistaModel = require('../models/entrevistaModel');
 
-const obtenerEntrevistas = async (req, res) => {
+class EntrevistaController {
+  static async obtenerTodos(req, res) {
     try {
-        const entrevistas = await entrevistaModel.obtenerEntrevistas();
-        res.json({
-            success: true,
-            data: entrevistas,
-            message: 'Entrevistas obtenidas exitosamente'
-        });
+      const entrevistas = await EntrevistaModel.obtenerTodos();
+      res.json({
+        exito: true,
+        datos: entrevistas,
+        cantidad: entrevistas.length
+      });
     } catch (error) {
-        console.error('Error al obtener entrevistas:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error interno del servidor',
-            error: error.message
-        });
+      console.error('Error al obtener entrevistas:', error);
+      res.status(500).json({
+        exito: false,
+        mensaje: 'Error al obtener las entrevistas',
+        error: error.message
+      });
     }
-};
+  }
 
-const obtenerEntrevistaPorId = async (req, res) => {
+  static async obtenerPorId(req, res) {
     try {
-        const { id } = req.params;
+      const { id } = req.params;
+      const entrevista = await EntrevistaModel.obtenerPorId(id);
 
-        if (!id || isNaN(id)) {
-            return res.status(400).json({
-                success: false,
-                message: 'ID de entrevista inválido'
-            });
-        }
-
-        const entrevista = await entrevistaModel.obtenerEntrevistaPorId(parseInt(id));
-
-        if (!entrevista) {
-            return res.status(404).json({
-                success: false,
-                message: 'Entrevista no encontrada'
-            });
-        }
-
-        await entrevistaModel.incrementarVistasEntrevista(parseInt(id));
-
-        res.json({
-            success: true,
-            data: entrevista,
-            message: 'Entrevista obtenida exitosamente'
+      if (!entrevista) {
+        return res.status(404).json({
+          exito: false,
+          mensaje: 'Entrevista no encontrada'
         });
+      }
+
+      res.json({
+        exito: true,
+        datos: entrevista
+      });
     } catch (error) {
-        console.error('Error al obtener entrevista:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error interno del servidor',
-            error: error.message
-        });
+      console.error('Error al obtener entrevista:', error);
+      res.status(500).json({
+        exito: false,
+        mensaje: 'Error al obtener la entrevista',
+        error: error.message
+      });
     }
-};
+  }
 
-const obtenerEntrevistasPorAutor = async (req, res) => {
+  static async obtenerRecientes(req, res) {
     try {
-        const { idAutor } = req.params;
+      const limite = req.query.limite || 5;
+      const entrevistas = await EntrevistaModel.obtenerRecientes(limite);
 
-        if (!idAutor || isNaN(idAutor)) {
-            return res.status(400).json({
-                success: false,
-                message: 'ID de autor inválido'
-            });
-        }
-
-        const entrevistas = await entrevistaModel.obtenerEntrevistasPorAutor(parseInt(idAutor));
-
-        res.json({
-            success: true,
-            data: entrevistas,
-            message: 'Entrevistas del autor obtenidas exitosamente'
-        });
+      res.json({
+        exito: true,
+        datos: entrevistas,
+        cantidad: entrevistas.length
+      });
     } catch (error) {
-        console.error('Error al obtener entrevistas por autor:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error interno del servidor',
-            error: error.message
-        });
+      console.error('Error al obtener entrevistas recientes:', error);
+      res.status(500).json({
+        exito: false,
+        mensaje: 'Error al obtener las entrevistas',
+        error: error.message
+      });
     }
-};
+  }
+}
 
-module.exports = {
-    obtenerEntrevistas,
-    obtenerEntrevistaPorId,
-    obtenerEntrevistasPorAutor
-};
+module.exports = EntrevistaController;

@@ -1,41 +1,47 @@
-const sql = require('mssql');
-const env = require('dotenv').config();
+const mysql = require('mysql2/promise');
+require('dotenv').config();
 
-const dbconfig = {
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    server: process.env.DB_SERVER,
-    database: process.env.DB_NAME,
-    options: {
-        encrypt: false,
-        trustservercertificate: true
-    },
-    pool: {
-        max: 10,
-        min: 0,
-        idleTimeoutMillis: 30000
+const config = {
+  host: process.env.DB_SERVER,
+  database: process.env.DB_DATABASE,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD || '',
+  port: parseInt(process.env.DB_PORT),
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+};
+
+let pool = null;
+
+const obtenerConexion = async () => {
+  try {
+    if (pool) {
+      return pool;
     }
-}
+    pool = mysql.createPool(config);
+    console.log('✓ Conexión a MySQL establecida');
+    return pool;
+  } catch (error) {
+    console.error('Error al conectar con MySQL:', error);
+    throw error;
+  }
+};
 
-let pool;
-
-async function obtenerConexion() {
-
-    try {
-        if (pool) {
-            return pool;
-        }
-
-        pool = await sql.connect (dbconfig);
-        console.log("Conexion exitosa")
-        return pool;
-    } catch (error) {
-        console.log("Error al conectarse a la base de datos")
-        throw error;
+const cerrarConexion = async () => {
+  try {
+    if (pool) {
+      await pool.end();
+      pool = null;
+      console.log('✓ Conexión a MySQL cerrada');
     }
-    
-}
+  } catch (error) {
+    console.error('Error al cerrar conexión:', error);
+  }
+};
 
 module.exports = {
-    sql, obtenerConexion
-}
+  mysql,
+  obtenerConexion,
+  cerrarConexion
+};

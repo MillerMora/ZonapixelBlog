@@ -12,29 +12,65 @@ ZonapixelBlog es una plataforma web diseñada para compartir contenido relaciona
 
 ## 🛠️ Tecnologías
 
-- HTML5 — Estructura de las páginas web
-- CSS3 — Estilos y diseño responsivo
-- Bootstrap 5 — Framework CSS para componentes y layout
+- **Frontend:**
+  - HTML5 — Estructura de las páginas web
+  - CSS3 — Estilos y diseño responsivo
+  - Bootstrap 5 — Framework CSS para componentes y layout
+- **Backend:**
+  - Node.js — Entorno de ejecución para JavaScript en el servidor
+  - Express.js — Framework web para Node.js
+  - MSSQL — Base de datos relacional
+  - dotenv — Gestión de variables de entorno
+  - CORS — Manejo de solicitudes cross-origin
 
 ## 📁 Estructura del proyecto
 
 ```
 ZonapixelBlog/
+├── .gitignore
+├── readme.md
+├── zonapixel_db.sql
 ├── backend/
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── .env
 │   └── src/
-│       ├── config/        # Configuraciones del servidor / DB
-│       ├── controllers/   # Lógica de controladores
-│       ├── models/        # Modelos de datos
-│       └── routers/       # Rutas/API
-├── frontend/
-│   └── public/
-│       └── src/
-│           ├── assets/    # Imágenes y media
-│           ├── css/
-|           |   └── style.css       # Hojas de estilo
-│           ├── js/        # Scripts del cliente
-│           └── views/     # Vistas/HTML (index, reseñas, artículos etc.)
-└── readme.md
+│       ├── app.js
+│       ├── config/
+│       │   └── database.js    # Configuraciones de la base de datos
+│       ├── controllers/       # Lógica de controladores
+│       │   ├── articuloController.js
+│       │   ├── categoriaController.js
+│       │   ├── comentarioController.js
+│       │   ├── entrevistaController.js
+│       │   └── opinionController.js
+│       ├── models/            # Modelos de datos
+│       │   ├── articuloModel.js
+│       │   ├── categoriaModel.js
+│       │   ├── comentarioModel.js
+│       │   ├── entrevistaModel.js
+│       │   ├── juegoModel.js
+│       │   ├── opinionModel.js
+│       │   └── resenaModel.js
+│       └── routers/
+│           └── router.js      # Rutas/API
+└── frontend/
+    ├── js/
+    └── public/
+        └── src/
+            ├── css/
+            │   └── style.css  # Hojas de estilo
+            └── views/         # Vistas/HTML
+                ├── index.html
+                ├── articulo.html
+                ├── articulos.html
+                ├── crear_opinion.html
+                ├── entrevista.html
+                ├── entrevistas.html
+                ├── opinion.html
+                ├── opiniones.html
+                ├── resena.html
+                └── resenas.html
 ```
 
 Notas rápidas:
@@ -45,10 +81,15 @@ Notas rápidas:
 
 1. Clona el repositorio:
    git clone <URL_DEL_REPOSITORIO>
-2. Revisa el frontend:
-   - Abre `frontend/public/src/views/index.html` (o `frontend/public/src/index.html` si existe) en tu navegador.
-3. Revisa el backend:
-   - Abre `backend/src/` para ver la implementación del servidor (instalación / ejecución depende del stack utilizado — p. ej. Node.js/Express).
+2. Configura la base de datos:
+   - Ejecuta el script `zonapixel_db.sql` en tu servidor MSSQL para crear la base de datos y tablas.
+   - Configura las variables de entorno en `backend/.env` (copia de `.env.example` si existe).
+3. Instala dependencias del backend:
+   - Navega a `backend/` y ejecuta `npm install`.
+4. Ejecuta el backend:
+   - En `backend/`, ejecuta `npm run dev` para iniciar el servidor en modo desarrollo.
+5. Revisa el frontend:
+   - Abre `frontend/public/src/views/index.html` en tu navegador para ver la interfaz de usuario.
 
 ## 🤝 Contribución
 
