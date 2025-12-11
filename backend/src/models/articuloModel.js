@@ -98,6 +98,49 @@ class ArticuloModel {
       throw error;
     }
   }
+  static async crear(data, idUsuario) {
+    try {
+      const pool = await obtenerConexion();
+      const { titulo, contenido, id_categoria, id_juego, imagen_principal } = data;
+      const [resultado] = await pool.execute(`
+        INSERT INTO articulos (titulo, contenido, id_autor, id_categoria, id_juego, imagen_principal)
+        VALUES (?, ?, ?, ?, ?, ?)
+      `, [titulo, contenido, idUsuario, id_categoria || null, id_juego || null, imagen_principal || null]);
+      return resultado.insertId;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async actualizar(id, data, idUsuario) {
+    try {
+      const pool = await obtenerConexion();
+      const { titulo, contenido, id_categoria, id_juego, imagen_principal } = data;
+      const [resultado] = await pool.execute(`
+        UPDATE articulos
+        SET titulo = ?, contenido = ?, id_categoria = ?, id_juego = ?, imagen_principal = ?, fecha_modificacion = CURRENT_TIMESTAMP
+        WHERE id_articulo = ? AND id_autor = ?
+      `, [titulo, contenido, id_categoria || null, id_juego || null, imagen_principal || null, id, idUsuario]);
+      return resultado.affectedRows > 0;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async eliminar(id, idUsuario) {
+    try {
+      const pool = await obtenerConexion();
+      const [resultado] = await pool.execute(`
+        UPDATE articulos
+        SET activo = 0
+        WHERE id_articulo = ? AND id_autor = ?
+      `, [id, idUsuario]);
+      return resultado.affectedRows > 0;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
 }
 
 module.exports = ArticuloModel;

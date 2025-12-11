@@ -209,11 +209,12 @@ GROUP BY
     u.nombre_usuario, u.imagen_perfil, c.nombre_categoria, j.nombre_juego;
 
 CREATE OR REPLACE VIEW vista_resenas_completas AS
-SELECT 
+SELECT
     r.*,
     u.nombre_usuario,
     c.nombre_categoria,
     j.nombre_juego,
+    j.plataformas as plataforma,
     j.desarrollador
 FROM resenas r
 LEFT JOIN usuarios u ON r.id_autor = u.id_usuario
