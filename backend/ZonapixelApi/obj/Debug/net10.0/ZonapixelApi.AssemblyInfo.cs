@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ZonapixelApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+91618f87940a56acc161fa71313b4649a3100de5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c171cc129be34628f693ad591bd88d6d5c0f3d4b")]
 [assembly: System.Reflection.AssemblyProductAttribute("ZonapixelApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ZonapixelApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
