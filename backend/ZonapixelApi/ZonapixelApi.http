@@ -1,0 +1,6 @@
+@ZonapixelApi_HostAddress = http://localhost:5230
+
+GET {{ZonapixelApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
