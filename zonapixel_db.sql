@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
 );
 
 INSERT INTO usuarios (nombre_usuario, email, password_hash, id_rol) VALUES
-('admin', 'admin@zonapixel.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1);
+('admin', 'admin@zonapixel.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1),
+('usuario', 'usuario@gmail.com', 'contraseña123#45678', 2);
 
 CREATE TABLE IF NOT EXISTS categorias (
     id_categoria INT PRIMARY KEY AUTO_INCREMENT,
