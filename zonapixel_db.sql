@@ -17,6 +17,8 @@ INSERT INTO roles (nombre_rol, descripcion) VALUES
 
 CREATE TABLE IF NOT EXISTS usuarios (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(25) NOT NULL,
+    apellido VARCHAR(25) NOT NULL,
     nombre_usuario VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(150) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
@@ -30,9 +32,9 @@ CREATE TABLE IF NOT EXISTS usuarios (
     INDEX idx_nombre_usuario (nombre_usuario)
 );
 
-INSERT INTO usuarios (nombre_usuario, email, password_hash, id_rol) VALUES
-('admin', 'admin@zonapixel.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1),
-('usuario', 'usuario@gmail.com', 'contraseña123#45678', 2);
+INSERT INTO usuarios (nombre,apellido,nombre_usuario, email, password_hash, id_rol) VALUES
+('nombre','apellido','admin', 'admin@zonapixel.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 1),
+('juan','gonzalez','usuario', 'usuario@gmail.com', 'contraseña123#45678', 2);
 
 CREATE TABLE IF NOT EXISTS categorias (
     id_categoria INT PRIMARY KEY AUTO_INCREMENT,

@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
         loginForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Get form values
+            // Obtener valores del formulario
             const email = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            // Validate inputs
+            // Validar entradas
             if (!email || !password) {
                 alert('Por favor, ingresa tu email y contraseña');
                 return;
@@ -31,9 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (data.success) {
                     alert('¡Login exitoso! Bienvenido ' + (data.user ? data.user.name : ''));
-                    // Store user session if needed
+                    // Guardar sesión del usuario si es necesario
                     localStorage.setItem('user', JSON.stringify(data.user));
-                    // Redirect to home or dashboard
+                    // Redirigir a inicio o al panel
                     window.location.href = 'index.html';
                 } else {
                     alert(data.message || 'Email o contraseña incorrectos');
