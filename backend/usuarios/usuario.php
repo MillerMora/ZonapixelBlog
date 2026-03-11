@@ -58,9 +58,9 @@ $usuario = consultar_usuarios_rol();
         <div class="crud-container">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0">Lista de Usuarios</h2>
-                <button class="btn-add">
-                    <i class="fas fa-plus"></i> Nueva Reseña
-                </button>
+                <a href="crear_usuario.php" class="btn-add">
+                    <i class="fas fa-plus"></i> Nuevo Usuario
+                </a>
             </div>
 
             <div class="table-container">
@@ -101,11 +101,15 @@ $usuario = consultar_usuarios_rol();
                                 </td>
 
                                 <td> 
-                                    <a href="./actualizar_usuario.php?id=<?=$filas['id_usuario']?>">Modificar</a>
+                                    <a href="./actualizar_usuario.php?id=<?=$filas['id_usuario']?>" class="btn-action btn-edit">
+                                        <i class="fas fa-edit"></i> Modificar
+                                    </a>
                                 </td>
 
                                 <td> 
-                                    <a href="./usuarioModel.php?eliminar=<?= $filas['id_usuario'] ?>">Eliminar</a>
+                                    <a href="./usuarioModel.php?eliminar=<?= $filas['id_usuario'] ?>" class="btn-action btn-delete" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </a>
                                 </td>
                             </tr>
                         <?php endwhile; ?>

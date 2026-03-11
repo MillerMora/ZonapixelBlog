@@ -1,15 +1,13 @@
 <?php 
 include './usuarioModel.php';
-$id = $_GET['id'];
 
-$fila = consultar_usuarios_id($id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZonaPixel - Crear Usuario</title>
+    <title>ZonaPixel - Actualizar Usuario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -49,8 +47,8 @@ $fila = consultar_usuarios_id($id);
 
     <div class="page-header">
         <div class="container">
-            <h1 class="page-title">Actualizar Usuario</h1>
-            <p class="page-subtitle">Modifica los datos del usuario</p>
+            <h1 class="page-title">crear Usuario</h1>
+            <p class="page-subtitle">Agrega los datos del usuario</p>
         </div>
     </div>
 
@@ -62,45 +60,42 @@ $fila = consultar_usuarios_id($id);
                 </a>
             </div>
 
-            <form id="updateUserForm" action="editar_usuario.php" method="POST">
+            <form id="updateUserForm" action="editar_usuario.php?crear='crear'.php" method="POST">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="id_usuario" class="form-label">id</label>
-                        <input type="text" class="form-control" id="id_usuario" name="id_usuario" required value="<?= $fila['id_usuario'] ?>" readonly>
-                    </div>
-                    <div class="col-md-6 mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" required value="<?= $fila['nombre'] ?>">
+                        <input type="text" class="form-control" id="nombre" name="nombre" required ">
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="apellido" name="apellido" required value="<?= $fila['apellido'] ?>">
+                        <input type="text" class="form-control" id="apellido" name="apellido" required ">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
-                        <input type="text" class="form-control" id="nombre_usuario" name="usuario_nombre" required value="<?= $fila['nombre_usuario'] ?>">
+                        <input type="text" class="form-control" id="nombre_usuario" name="usuario_nombre" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="email" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" name="email" required value="<?= $fila['email'] ?>">
+                        <input type="email" class="form-control" id="email" name="email" required >
                     </div>
                     
                     <div class="col-md-6 mb-3">
                         <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password" required value="<?= $fila['password_hash'] ?>">
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="id_rol" class="form-label">Rol</label>
                     <select class="form-select" id="id_rol" name="id_rol" required>
-                        <option value="1" <?php if ($fila['id_rol'] == 1) echo "selected"; ?>>Administrador</option>
-                        <option value="2" <?php if ($fila['id_rol'] == 2) echo "selected"; ?>>Usuario</option>
+                        <option value="">Seleccionar rol</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Usuario</option>
                     </select>
                 </div>
 

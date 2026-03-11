@@ -8,10 +8,12 @@ $usuario = $_POST['usuario_nombre'];
 $correo = $_POST['email'];
 $contrasena = $_POST['password'];
 $id_rol = $_POST['id_rol'];
+if (isset($_GET['crear'])){
+    $crear_datos = crear_usuario_rol($nombre, $apellido, $usuario, $correo, $contrasena, $id_rol);
+}
+$actualizar_datos = actualizar_usuario($id, $nombre, $apellido, $usuario, $correo, $contrasena, $id_rol);
 
-$x = actualizar_usuario($id, $nombre, $apellido, $usuario, $correo, $contrasena, $id_rol);
-
-if ($x) {
+if ($actualizar_datos || $crear_datos) {
     header('Location: usuario.php');
     exit;
 } else {

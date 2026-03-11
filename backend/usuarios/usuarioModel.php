@@ -9,6 +9,14 @@ function crear_usuario($nombre, $apellido, $nombre_usuario, $email, $password_ha
     $resultado = mysqli_stmt_execute($sql);
     return $resultado;
 }
+function crear_usuario_rol($nombre, $apellido, $nombre_usuario, $email, $password_hash,$id_rol)
+{
+    $conn = connection();
+    $sql = mysqli_prepare($conn, 'INSERT INTO usuarios (nombre, apellido, nombre_usuario, email, password_hash, id_rol) VALUES (?, ?, ?, ?, ?, ?)');
+    mysqli_stmt_bind_param($sql, 'sssssi', $nombre, $apellido, $nombre_usuario, $email, $password_hash,$id_rol);
+    $resultado = mysqli_stmt_execute($sql);
+    return $resultado;
+}
 
 function actualizar_usuario($id, $nombre, $apellido, $usuario, $correo, $contrasena, $id_rol)
 {
