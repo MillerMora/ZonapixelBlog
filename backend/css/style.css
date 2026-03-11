@@ -1154,11 +1154,16 @@ body {
     padding: 0.75rem 2rem;
     border-radius: 8px;
     font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     transition: all 0.3s;
 }
 
 .btn-add:hover {
     background: #7c3aed;
+    color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
@@ -1219,10 +1224,18 @@ body {
     border-radius: 6px;
     font-size: 0.9rem;
     margin-right: 0.5rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
 }
 
 .btn-edit:hover {
     background: #2563eb;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .btn-delete {
@@ -1232,10 +1245,19 @@ body {
     padding: 0.5rem 1rem;
     border-radius: 6px;
     font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .btn-delete:hover {
     background: #dc2626;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
 .modal-content {
