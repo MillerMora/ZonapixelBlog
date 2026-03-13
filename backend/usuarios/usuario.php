@@ -28,7 +28,7 @@ $usuario = consultar_usuarios_rol();
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-home"></i> Inicio</a>
+                        <a class="nav-link" href="../../frontend/public/src/views/index.html"><i class="fas fa-home"></i> Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="#"><i class="fas fa-cog"></i> Gestión</a>
